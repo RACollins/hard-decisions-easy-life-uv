@@ -7,10 +7,11 @@ def main():
 
     people = [
         Person("Amy", 90),
-        Person("Barry", 70),
-        Person("Cindy", 50),
-        Person("Danny", 30),
-        Person("Ethan", 10),
+        Person("Barry", 75),
+        Person("Cindy", 64),
+        Person("Danny", 45),
+        Person("Ethan", 25),
+        Person("Frank", 10),
     ]
     simulation = LifeSimulation(people)
     simulation.simlulate_life(2000)
