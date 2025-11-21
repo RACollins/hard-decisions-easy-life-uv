@@ -1,4 +1,5 @@
-from manim import *
+from manim import Scene, Create, Square
+
 
 class TestScene(Scene):
     def construct(self):
