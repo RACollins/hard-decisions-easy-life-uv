@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import sympy as sp
+from manim import Scene
 
 
 ###############
@@ -82,7 +83,7 @@ class LifeSimulation:
     def classic_choice_function(self, form: str):
         x = sp.symbols("x")
 
-        m1 = 0
+        m1 = 25
         m2 = 75
         s1 = 5
         s2 = 5
@@ -230,3 +231,45 @@ class LifeSimulation:
                 )
             person.convert_decision_list_to_df()
             person.calc_life_score()
+
+
+###############
+### Configs ###
+###############
+
+
+class Config:
+    def __init__(
+        self,
+        genorator: str,
+        n_choices: int,
+        number_of_decisions: int,
+        people: list[Person],
+    ):
+        self.genorator = genorator
+        self.n_choices = n_choices
+        self.number_of_decisions = number_of_decisions
+        self.people = people
+
+
+#################
+### Animation ###
+#################
+
+
+class LifeSimulationAnimation(Scene):
+    def construct(self):
+        # Define simulation configs
+        classic_config = Config(
+            "classic", 12, 150, [Person("Amy", 50), Person("Barry", 100)]
+        )
+        opposites_config = Config(
+            "opposites", 12, 150, [Person("Amy", 50), Person("Barry", 100)]
+        )
+        four_choice_config = Config(
+            "4", 12, 150, [Person("Amy", 50), Person("Barry", 100)]
+        )
+        random_config = Config(
+            "random", 12, 150, [Person("Amy", 5), Person("Barry", 10)]
+        )
+        configs = [classic_config, opposites_config, four_choice_config, random_config]
