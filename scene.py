@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import sympy as sp
-from manim import Scene
+from manim import Scene, Axes, Create, RED, Write, rate_functions
 
 
 ###############
@@ -272,4 +272,45 @@ class LifeSimulationAnimation(Scene):
         random_config = Config(
             "random", 12, 150, [Person("Amy", 5), Person("Barry", 10)]
         )
-        configs = [classic_config, opposites_config, four_choice_config, random_config]
+        configs = {
+            "classic": classic_config,
+            "opposites": opposites_config,
+            "four_choice": four_choice_config,
+            "random": random_config,
+        }
+
+        # Define simulation
+        simulation = LifeSimulation(
+            configs["random"].people,
+            configs["random"].genorator,
+            configs["random"].n_choices,
+        )
+
+        # Check example choice array
+        choice_array = simulation.generate_choice_array(
+            genorator=configs["random"].genorator,
+            n_choices=configs["random"].n_choices,
+        )
+        print(choice_array)
+
+        # Plot choice array
+        ax = Axes(
+            x_range=[0, 100],
+            y_range=[-0.01, 0.01],
+        )
+        # self.play(Create(ax)) # Uncomment to draw axes
+
+        # Generate line graph and plot
+        line_graph = ax.plot_line_graph(
+            x_values=list(range(100)),
+            y_values=choice_array[0],
+            line_color=RED,
+            add_vertex_dots=False,
+            stroke_width=3,
+        )
+
+        ### Draw plots
+        self.play(
+            Write(line_graph, run_time=6.5, rate_func=rate_functions.ease_in_quad)
+        )
+        self.wait()
